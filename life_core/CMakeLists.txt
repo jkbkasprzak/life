@@ -1,4 +1,4 @@
-string(APPEND TARGET_NAME life_core)
+set(TARGET_NAME life_core)
 
 file(GLOB_RECURSE SRC_FILES
   include/*.h
@@ -7,3 +7,5 @@ file(GLOB_RECURSE SRC_FILES
 )
 add_library(${TARGET_NAME} ${SRC_FILES})
 target_include_directories(${TARGET_NAME} PUBLIC include)
+
+add_subdirectory(tests)

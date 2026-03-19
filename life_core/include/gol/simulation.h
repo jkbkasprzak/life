@@ -12,6 +12,10 @@ typedef uintptr_t gol_size;
 #define GOL_TRUE 1
 #define GOL_FALSE 0
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum _gol_result {
   GOL_RESULT_SUCCESS = 0,  
   GOL_RESULT_ERROR = 1,
@@ -36,12 +40,13 @@ typedef struct _gol_cell {
 } gol_cell;
 
 // simulation api
-gol_result gol_create_simulation(gol_simulation *simulation);
+gol_result gol_simulation_create(gol_simulation *simulation);
 gol_result gol_simulation_step(gol_simulation simulation);
 gol_result gol_simulation_get_step(gol_simulation simulation, gol_size *step);
 gol_result gol_simulation_set_bounds(gol_simulation simulation, const gol_grid_bounds *bounds);
+gol_result gol_simulation_get_bounds(gol_simulation simulation, gol_grid_bounds *bounds);
 gol_result gol_simulation_get_cell(gol_simulation simulation, const gol_grid_position *position, gol_cell *cell);
-gol_result gol_simulation_set_cells(gol_simulation simulation, gol_size size, const gol_cell *cells);
+gol_result gol_simulation_set_cells(gol_simulation simulation, gol_size size, const gol_cell *cells, gol_result *results);
 gol_result gol_simulation_get_alive_cells(gol_simulation simulation, gol_size *size, gol_cell *cells);
 gol_result gol_simulation_get_updated_cells(gol_simulation simulation, gol_size *size, gol_cell *cells);
 gol_result gol_simulation_destroy(gol_simulation simulation);
@@ -49,4 +54,7 @@ gol_result gol_simulation_destroy(gol_simulation simulation);
 // move this out of public api
 gol_result gol_check_grid_position_in_bounds(gol_grid_position *position, gol_grid_bounds *bounds);
 
+#ifdef __cplusplus
+}
+#endif
 #endif
