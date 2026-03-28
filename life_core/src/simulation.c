@@ -4,11 +4,12 @@ gol_result gol_simulation_create(gol_simulation *simulation) {
     return GOL_RESULT_ERROR;
 }
 
-gol_result gol_simulation_step(gol_simulation simulation) {
+gol_result gol_simulation_next_frame(gol_simulation simulation) {
     return GOL_RESULT_ERROR;
 }
 
-gol_result gol_simulation_get_step(gol_simulation simulation, gol_size *step) {
+gol_result gol_simulation_get_frame_count(gol_simulation simulation,
+                                          gol_size *step) {
     return GOL_RESULT_ERROR;
 }
 
@@ -22,9 +23,9 @@ gol_result gol_simulation_get_bounds(gol_simulation simulation,
     return GOL_RESULT_ERROR;
 }
 
-gol_result gol_simulation_get_cell(gol_simulation simulation,
-                                   const gol_grid_position *position,
-                                   gol_cell *cell) {
+gol_result gol_simulation_query_cells(gol_simulation simulation, gol_size size,
+                                      const gol_grid_position *positions,
+                                      gol_cell *cells) {
     return GOL_RESULT_ERROR;
 }
 

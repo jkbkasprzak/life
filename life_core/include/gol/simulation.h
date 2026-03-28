@@ -41,15 +41,16 @@ typedef struct _gol_cell {
 
 // simulation api
 gol_result gol_simulation_create(gol_simulation *simulation);
-gol_result gol_simulation_step(gol_simulation simulation);
-gol_result gol_simulation_get_step(gol_simulation simulation, gol_size *step);
+gol_result gol_simulation_next_frame(gol_simulation simulation);
+gol_result gol_simulation_get_frame_count(gol_simulation simulation,
+                                          gol_size *step);
 gol_result gol_simulation_set_bounds(gol_simulation simulation,
                                      const gol_grid_bounds *bounds);
 gol_result gol_simulation_get_bounds(gol_simulation simulation,
                                      gol_grid_bounds *bounds);
-gol_result gol_simulation_get_cell(gol_simulation simulation,
-                                   const gol_grid_position *position,
-                                   gol_cell *cell);
+gol_result gol_simulation_query_cells(gol_simulation simulation, gol_size size,
+                                      const gol_grid_position *positions,
+                                      gol_cell *cells);
 gol_result gol_simulation_set_cells(gol_simulation simulation, gol_size size,
                                     const gol_cell *cells, gol_result *results);
 gol_result gol_simulation_get_alive_cells(gol_simulation simulation,
@@ -57,10 +58,6 @@ gol_result gol_simulation_get_alive_cells(gol_simulation simulation,
 gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
                                             gol_size *size, gol_cell *cells);
 gol_result gol_simulation_destroy(gol_simulation simulation);
-
-// move this out of public api
-gol_result gol_check_grid_position_in_bounds(gol_grid_position *position,
-                                             gol_grid_bounds *bounds);
 
 #ifdef __cplusplus
 }
