@@ -22,6 +22,17 @@ typedef enum _gol_result {
     GOL_RESULT_OUT_OF_GRID_BOUNDS = 2,
 } gol_result;
 
+typedef enum _gol_simulation_property_type {
+    GOL_SIMULATION_PROPERTY_TYPE_HASH_COLLISIONS
+} gol_simulation_property_type;
+
+typedef struct _gol_simulation_property_query {
+    gol_simulation_property_type type;
+    void *property;
+} gol_simulation_property_query;
+
+typedef uint32_t gol_simulation_property_hash_collisions;
+
 typedef struct _gol_grid_position {
     gol_grid_scalar x;
     gol_grid_scalar y;
@@ -34,6 +45,8 @@ typedef struct _gol_cell {
 
 gol_result gol_simulation_create(gol_simulation *simulation,
                                  gol_grid_scalar size);
+gol_result gol_simulation_query_property(gol_simulation simulation,
+                                         gol_simulation_property_query *query);
 gol_result gol_simulation_next_frame(gol_simulation simulation);
 gol_result gol_simulation_get_frame_count(gol_simulation simulation,
                                           gol_size *step);

@@ -5,6 +5,11 @@ gol_result gol_simulation_create(gol_simulation *simulation,
     return GOL_RESULT_ERROR;
 }
 
+gol_result gol_simulation_query_property(gol_simulation simulation,
+                                         gol_simulation_property_query *query) {
+    return GOL_RESULT_ERROR;
+}
+
 gol_result gol_simulation_next_frame(gol_simulation simulation) {
     return GOL_RESULT_ERROR;
 }
