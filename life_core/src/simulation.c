@@ -1,6 +1,7 @@
 #include "gol/simulation.h"
 
-gol_result gol_simulation_create(gol_simulation *simulation) {
+gol_result gol_simulation_create(gol_simulation *simulation,
+                                 gol_grid_scalar size) {
     return GOL_RESULT_ERROR;
 }
 
@@ -10,16 +11,6 @@ gol_result gol_simulation_next_frame(gol_simulation simulation) {
 
 gol_result gol_simulation_get_frame_count(gol_simulation simulation,
                                           gol_size *step) {
-    return GOL_RESULT_ERROR;
-}
-
-gol_result gol_simulation_set_size(gol_simulation simulation,
-                                   gol_grid_scalar size) {
-    return GOL_RESULT_ERROR;
-}
-
-gol_result gol_simulation_get_size(gol_simulation simulation,
-                                   gol_grid_scalar *size) {
     return GOL_RESULT_ERROR;
 }
 
