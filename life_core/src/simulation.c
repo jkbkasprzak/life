@@ -13,13 +13,13 @@ gol_result gol_simulation_get_frame_count(gol_simulation simulation,
     return GOL_RESULT_ERROR;
 }
 
-gol_result gol_simulation_set_bounds(gol_simulation simulation,
-                                     const gol_grid_bounds *bounds) {
+gol_result gol_simulation_set_size(gol_simulation simulation,
+                                   gol_grid_scalar size) {
     return GOL_RESULT_ERROR;
 }
 
-gol_result gol_simulation_get_bounds(gol_simulation simulation,
-                                     gol_grid_bounds *bounds) {
+gol_result gol_simulation_get_size(gol_simulation simulation,
+                                   gol_grid_scalar *size) {
     return GOL_RESULT_ERROR;
 }
 

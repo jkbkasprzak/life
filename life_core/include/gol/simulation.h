@@ -27,27 +27,19 @@ typedef struct _gol_grid_position {
     gol_grid_scalar y;
 } gol_grid_position;
 
-typedef struct _gol_grid_bounds {
-    gol_grid_scalar top;
-    gol_grid_scalar left;
-    gol_grid_scalar bottom;
-    gol_grid_scalar right;
-} gol_grid_bounds;
-
 typedef struct _gol_cell {
     gol_grid_position pos;
     gol_bool is_alive;
 } gol_cell;
 
-// simulation api
 gol_result gol_simulation_create(gol_simulation *simulation);
 gol_result gol_simulation_next_frame(gol_simulation simulation);
 gol_result gol_simulation_get_frame_count(gol_simulation simulation,
                                           gol_size *step);
-gol_result gol_simulation_set_bounds(gol_simulation simulation,
-                                     const gol_grid_bounds *bounds);
-gol_result gol_simulation_get_bounds(gol_simulation simulation,
-                                     gol_grid_bounds *bounds);
+gol_result gol_simulation_set_size(gol_simulation simulation,
+                                   gol_grid_scalar size);
+gol_result gol_simulation_get_size(gol_simulation simulation,
+                                   gol_grid_scalar *size);
 gol_result gol_simulation_query_cells(gol_simulation simulation, gol_size size,
                                       const gol_grid_position *positions,
                                       gol_cell *cells);
