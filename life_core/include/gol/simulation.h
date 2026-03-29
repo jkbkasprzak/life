@@ -23,7 +23,7 @@ typedef enum _gol_result {
 } gol_result;
 
 typedef enum _gol_simulation_property_type {
-    GOL_SIMULATION_PROPERTY_TYPE_HASH_COLLISIONS
+    GOL_SIMULATION_PROPERTY_TYPE_GRID_ACCESS_PROFILING
 } gol_simulation_property_type;
 
 typedef struct _gol_simulation_property_query {
@@ -31,7 +31,10 @@ typedef struct _gol_simulation_property_query {
     void *property;
 } gol_simulation_property_query;
 
-typedef uint32_t gol_simulation_property_hash_collisions;
+typedef struct _gol_simulation_property_grid_access_profiling {
+    uint32_t hit_count;
+    uint32_t miss_count;
+} gol_simulation_property_grid_access_profiling;
 
 typedef struct _gol_grid_position {
     gol_grid_scalar x;
