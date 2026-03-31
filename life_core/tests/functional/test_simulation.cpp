@@ -345,10 +345,10 @@ TEST_F(SimulationTest, CanQueryUpdatedCells) {
 // THEN profiling data is reported without error
 TEST_F(SimulationTest, CanQueryGridAccessProfiling) {
     gol_simulation_property_grid_access_profiling profiling{100, 100};
-    gol_simulation_property_query query;
-    query.type = GOL_SIMULATION_PROPERTY_TYPE_GRID_ACCESS_PROFILING;
-    query.property = &profiling;
-    ASSERT_EQ(gol_simulation_query_property(simulation, &query),
+    ASSERT_EQ(gol_simulation_query_property(
+                  simulation,
+                  GOL_SIMULATION_PROPERTY_TYPE_GRID_ACCESS_PROFILING,
+                  &profiling),
               GOL_RESULT_SUCCESS);
     EXPECT_EQ(profiling.hit_count, 0);
     EXPECT_EQ(profiling.miss_count, 0);

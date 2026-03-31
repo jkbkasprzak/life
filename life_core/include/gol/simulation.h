@@ -26,11 +26,6 @@ typedef enum _gol_simulation_property_type {
     GOL_SIMULATION_PROPERTY_TYPE_GRID_ACCESS_PROFILING
 } gol_simulation_property_type;
 
-typedef struct _gol_simulation_property_query {
-    gol_simulation_property_type type;
-    void *property;
-} gol_simulation_property_query;
-
 typedef struct _gol_simulation_property_grid_access_profiling {
     uint32_t hit_count;
     uint32_t miss_count;
@@ -49,7 +44,8 @@ typedef struct _gol_cell {
 gol_result gol_simulation_create(gol_simulation *simulation,
                                  gol_grid_scalar size);
 gol_result gol_simulation_query_property(gol_simulation simulation,
-                                         gol_simulation_property_query *query);
+                                         gol_simulation_property_type property,
+                                         void *data);
 gol_result gol_simulation_next_frame(gol_simulation simulation);
 gol_result gol_simulation_get_frame_count(gol_simulation simulation,
                                           gol_size *step);

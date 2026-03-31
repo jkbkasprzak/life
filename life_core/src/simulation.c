@@ -6,7 +6,8 @@ gol_result gol_simulation_create(gol_simulation *simulation,
 }
 
 gol_result gol_simulation_query_property(gol_simulation simulation,
-                                         gol_simulation_property_query *query) {
+                                         gol_simulation_property_type property,
+                                         void *data) {
     return GOL_RESULT_ERROR;
 }
 
