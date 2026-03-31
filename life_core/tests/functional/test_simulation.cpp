@@ -353,3 +353,52 @@ TEST_F(SimulationTest, CanQueryGridAccessProfiling) {
     EXPECT_EQ(profiling.hit_count, 0);
     EXPECT_EQ(profiling.miss_count, 0);
 }
+
+// GIVEN valid simulation
+// WHEN simulation advances to next frame
+// THEN cells are processed according to Conway's rules
+TEST_F(SimulationTest, FollowsConwaysRules) {
+    // Cell has 8 neighbors so 2^8 possible combinations
+    constexpr uint32_t combinations = 0b100000000;
+    constexpr uint32_t neighbors = 8;
+    constexpr gol_grid_position tested_pos = gol_grid_position{0, 0};
+    gol_grid_position positions[neighbors] = {
+        gol_grid_position{-1, -1}, gol_grid_position{-1, 0},
+        gol_grid_position{-1, 1},  gol_grid_position{0, -1},
+        gol_grid_position{0, 1},   gol_grid_position{1, -1},
+        gol_grid_position{1, 0},   gol_grid_position{1, 1}};
+    for (uint32_t starts_alive = 0; starts_alive < 2; starts_alive++) {
+        for (uint32_t i = 0; i < combinations; i++) {
+            gol_simulation tmp_sim = nullptr;
+            std::vector<gol_cell> alive_cells;
+            alive_cells.reserve(9);
+            uint32_t alive_neighbors = 0;
+            if (starts_alive == 1) {
+                alive_cells.push_back(gol_cell{tested_pos, GOL_TRUE});
+            }
+            for (uint32_t j = 0; j < neighbors; j++) {
+                uint32_t bit = 0b1 << j;
+                if ((i & bit) != 0) {
+                    alive_cells.push_back(gol_cell{positions[j], GOL_TRUE});
+                    alive_neighbors++;
+                }
+            }
+            ASSERT_EQ(gol_simulation_create(&tmp_sim, simulation_size),
+                      GOL_RESULT_SUCCESS);
+            ASSERT_EQ(gol_simulation_set_cells(tmp_sim, alive_cells.size(),
+                                               alive_cells.data(), nullptr),
+                      GOL_RESULT_SUCCESS);
+            ASSERT_EQ(gol_simulation_next_frame(tmp_sim), GOL_RESULT_SUCCESS);
+            gol_cell tested_cell;
+            ASSERT_EQ(gol_simulation_query_cells(tmp_sim, 1, &tested_pos,
+                                                 &tested_cell),
+                      GOL_RESULT_SUCCESS);
+            bool should_live = (alive_neighbors == 3);
+            if (starts_alive == 1) {
+                should_live = should_live || (alive_neighbors == 2);
+            }
+            EXPECT_EQ(tested_cell.is_alive, should_live ? GOL_TRUE : GOL_FALSE);
+            ASSERT_EQ(gol_simulation_destroy(tmp_sim), GOL_RESULT_SUCCESS);
+        }
+    }
+}
