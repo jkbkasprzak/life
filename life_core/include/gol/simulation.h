@@ -3,6 +3,12 @@
 
 #include <stdint.h>
 
+/// @file
+/// @brief Defines simulation API
+
+/// @defgroup simulation_api Simulation API
+/// @brief API for creating and running game of life simulations
+
 typedef void *gol_handle;
 typedef gol_handle gol_simulation;
 typedef int32_t gol_grid_scalar;
@@ -16,31 +22,68 @@ typedef uintptr_t gol_size;
 extern "C" {
 #endif
 
-typedef enum _gol_result {
-    GOL_RESULT_SUCCESS = 0,
-    GOL_RESULT_ERROR = 1,
-    GOL_RESULT_OUT_OF_GRID_BOUNDS = 2,
+/// @brief Defines possible operation results
+/// @ingroup simulation_api
+typedef enum {
+    GOL_RESULT_SUCCESS = 0, ///< Operation succeded
+    GOL_RESULT_ERROR = 1,   ///< Operation failed
+    GOL_RESULT_OUT_OF_GRID_BOUNDS =
+        2, ///< Operation failed because of exceeded grid bounds
+    GOL_RESULT_INVALID_ARGUMENT =
+        3, ///< Operation failed because of invalid arguments
 } gol_result;
 
-typedef enum _gol_simulation_property_type {
-    GOL_SIMULATION_PROPERTY_TYPE_GRID_ACCESS_PROFILING
+/// @brief Defines simulation properties
+/// @ingroup simulation_api
+typedef enum {
+    GOL_SIMULATION_PROPERTY_TYPE_GRID_ACCESS_PROFILING =
+        1, ///< Grid access profiling
 } gol_simulation_property_type;
 
-typedef struct _gol_simulation_property_grid_access_profiling {
+/// @brief Grid access profiling data
+/// @ingroup simulation_api
+///
+/// Statistics collected per frame about access to grid cells
+typedef struct {
+    /// @brief Count of accesses that returned requested cell
     uint32_t hit_count;
+    /// @brief Count of accesses that returned cell other than the requested one
     uint32_t miss_count;
 } gol_simulation_property_grid_access_profiling;
 
-typedef struct _gol_grid_position {
+/// @brief Grid position
+/// @ingroup simulation_api
+///
+/// Position in 2D grid space
+typedef struct {
+    /// @brief First component of 2D vector
     gol_grid_scalar x;
+    /// @brief Second component of 2D vector
     gol_grid_scalar y;
 } gol_grid_position;
 
-typedef struct _gol_cell {
+/// @brief Cell data
+/// @ingroup simulation_api
+///
+/// Cell in game of life has a position and can be either dead or alive
+typedef struct {
+    /// @brief Cell's position
     gol_grid_position pos;
+    /// @brief Determines if cell is alive or dead
     gol_bool is_alive;
 } gol_cell;
 
+/// @brief Creates simulation with specified size
+/// @ingroup simulation_api
+///
+/// Creates simulation with square shaped active area.
+/// Area is centered at point [0, 0] and have sides with length equal to
+/// (size * 2 - 1)
+///
+/// @param[out] simulation Opaque simulation handle
+/// @param[in] size Distance from the center to simulation borders
+/// @retval GOL_RESULT_SUCCESS Operation succeeded
+/// @retval GOL_RESULT_INVALID_ARGUMENT Error when size <= 0
 gol_result gol_simulation_create(gol_simulation *simulation,
                                  gol_grid_scalar size);
 gol_result gol_simulation_query_property(gol_simulation simulation,
