@@ -27,10 +27,8 @@ extern "C" {
 typedef enum {
     GOL_RESULT_SUCCESS = 0, ///< Operation succeded
     GOL_RESULT_ERROR = 1,   ///< Operation failed
-    GOL_RESULT_OUT_OF_GRID_BOUNDS =
-        2, ///< Operation failed because of exceeded grid bounds
     GOL_RESULT_INVALID_ARGUMENT =
-        3, ///< Operation failed because of invalid arguments
+        2, ///< Operation failed because of invalid arguments
 } gol_result;
 
 /// @brief Defines simulation properties
@@ -73,19 +71,14 @@ typedef struct {
     gol_bool is_alive;
 } gol_cell;
 
-/// @brief Creates simulation with specified size
+/// @brief Creates new simulation
 /// @ingroup simulation_api
 ///
-/// Creates simulation with square shaped active area.
-/// Area is centered at point [0, 0] and have sides with length equal to
-/// (size * 2 - 1)
+/// Creates new empty simulation where all cells are in dead state.
 ///
 /// @param[out] simulation Opaque simulation handle
-/// @param[in] size Distance from the center to simulation borders
 /// @retval GOL_RESULT_SUCCESS Operation succeeded
-/// @retval GOL_RESULT_INVALID_ARGUMENT Error when size <= 0
-gol_result gol_simulation_create(gol_simulation *simulation,
-                                 gol_grid_scalar size);
+gol_result gol_simulation_create(gol_simulation *simulation);
 gol_result gol_simulation_query_property(gol_simulation simulation,
                                          gol_simulation_property_type property,
                                          void *data);
@@ -96,7 +89,7 @@ gol_result gol_simulation_query_cells(gol_simulation simulation, gol_size size,
                                       const gol_grid_position *positions,
                                       gol_cell *cells);
 gol_result gol_simulation_set_cells(gol_simulation simulation, gol_size size,
-                                    const gol_cell *cells, gol_result *results);
+                                    const gol_cell *cells);
 gol_result gol_simulation_get_alive_cells(gol_simulation simulation,
                                           gol_size *size, gol_cell *cells);
 gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
