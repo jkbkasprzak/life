@@ -18,4 +18,15 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-add_subdirectory(life_core)
+
+set(TARGET_NAME ${CMAKE_PROJECT_NAME})
+
+file(GLOB_RECURSE SRC_FILES
+  include/*.h
+  src/*.h
+  src/*.c
+)
+add_library(${TARGET_NAME} ${SRC_FILES})
+target_include_directories(${TARGET_NAME} PUBLIC include)
+
+add_subdirectory(tests)
