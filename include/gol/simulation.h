@@ -9,6 +9,9 @@
 /// @defgroup simulation_api Simulation API
 /// @brief API for creating and running game of life simulations.
 
+/// @defgroup simulation_api_func Simulation API Functions
+/// @brief Functions for creating and running game of life simulation.
+
 /// @addtogroup simulation_api
 /// @{
 
@@ -94,6 +97,9 @@ typedef struct {
     /// @brief Determines if cell is alive or dead.
     gol_bool is_alive;
 } gol_cell;
+
+/// @addtogroup simulation_api_func
+/// @{
 
 /// @brief Creates new simulation.
 /// @since 1.0.0
@@ -220,6 +226,8 @@ gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
 /// @param[in] simulation Handle to destroy.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
 gol_result gol_simulation_destroy(gol_simulation simulation);
+
+/// @}
 
 #ifdef __cplusplus
 }
