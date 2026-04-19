@@ -33,13 +33,17 @@ protected:
 // THEN simulation frame counter is updated
 TEST_F(SimulationTest, CanCountFrames) {
     gol_result result = GOL_RESULT_ERROR;
-    gol_size frame = 1000;
-    result = gol_simulation_get_frame_count(simulation, &frame);
+    gol_simulation_property_frame_count frame = 1000;
+    gol_size size = 0;
+    result = gol_simulation_query_property(
+        simulation, GOL_SIMULATION_PROPERTY_TYPE_FRAME_COUNT, &size, &frame);
     ASSERT_EQ(result, GOL_RESULT_SUCCESS);
+    EXPECT_EQ(size, sizeof(gol_simulation_property_frame_count));
     EXPECT_EQ(frame, 0);
     result = gol_simulation_next_frame(simulation);
     ASSERT_EQ(result, GOL_RESULT_SUCCESS);
-    result = gol_simulation_get_frame_count(simulation, &frame);
+    result = gol_simulation_query_property(
+        simulation, GOL_SIMULATION_PROPERTY_TYPE_FRAME_COUNT, nullptr, &frame);
     ASSERT_EQ(result, GOL_RESULT_SUCCESS);
     EXPECT_EQ(frame, 1);
 }
@@ -215,11 +219,13 @@ TEST_F(SimulationTest, CanQueryUpdatedCells) {
 // THEN profiling data is reported without error
 TEST_F(SimulationTest, CanQueryGridAccessProfiling) {
     gol_simulation_property_grid_access_profiling profiling{100, 100};
+    gol_size size = 0;
     ASSERT_EQ(gol_simulation_query_property(
                   simulation,
-                  GOL_SIMULATION_PROPERTY_TYPE_GRID_ACCESS_PROFILING,
+                  GOL_SIMULATION_PROPERTY_TYPE_GRID_ACCESS_PROFILING, &size,
                   &profiling),
               GOL_RESULT_SUCCESS);
+    EXPECT_EQ(size, sizeof(gol_simulation_property_grid_access_profiling));
     EXPECT_EQ(profiling.hit_count, 0);
     EXPECT_EQ(profiling.miss_count, 0);
 }
