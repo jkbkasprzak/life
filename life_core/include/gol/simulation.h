@@ -1,5 +1,5 @@
-#ifndef _LIFE_SIMULATION_H
-#define _LIFE_SIMULATION_H
+#ifndef _GOL_SIMULATION_H
+#define _GOL_SIMULATION_H
 
 #include <stdint.h>
 
