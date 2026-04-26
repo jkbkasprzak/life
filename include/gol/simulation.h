@@ -15,13 +15,13 @@
 /// @addtogroup simulation_api
 /// @{
 
-/// @brief Generic opaque handle.
-/// @since 1.0.0
-typedef void *gol_handle;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/// @brief Handle for simulation resource.
+/// @brief Opaque handle for simulation resource.
 /// @since 1.0.0
-typedef gol_handle gol_simulation;
+typedef struct _gol_simulation_data *gol_simulation;
 
 /// @brief Position in single grid dimension.
 /// @since 1.0.0
@@ -42,10 +42,6 @@ typedef uintptr_t gol_size;
 /// @brief False value
 /// @since 1.0.0
 #define GOL_FALSE 0
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /// @brief Defines possible operation results.
 /// @since 1.0.0

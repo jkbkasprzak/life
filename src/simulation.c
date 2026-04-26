@@ -1,7 +1,17 @@
 #include "gol/simulation.h"
 
+#include "simulation_data.h"
+
+#include <stdlib.h>
+
 gol_result gol_simulation_create(gol_simulation *simulation) {
-    return GOL_RESULT_ERROR;
+    gol_simulation_data *data = NULL;
+    gol_result result = gol_simulation_data_create(&data);
+    if (result != GOL_RESULT_SUCCESS) {
+        return result;
+    }
+    *simulation = data;
+    return GOL_RESULT_SUCCESS;
 }
 
 gol_result gol_simulation_query_property(gol_simulation simulation,
@@ -36,5 +46,6 @@ gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
 }
 
 gol_result gol_simulation_destroy(gol_simulation simulation) {
-    return GOL_RESULT_ERROR;
+    gol_simulation_data_destroy(simulation);
+    return GOL_RESULT_SUCCESS;
 }
