@@ -50,10 +50,12 @@ extern "C" {
 /// @brief Defines possible operation results.
 /// @since 1.0.0
 typedef enum {
-    GOL_RESULT_SUCCESS = 0, ///< Operation succeded
-    GOL_RESULT_ERROR = 1,   ///< Operation failed
+    GOL_RESULT_SUCCESS = 0, ///< Operation succeded.
+    GOL_RESULT_ERROR = 1,   ///< Operation failed.
     GOL_RESULT_UNKNOWN_SIMULATION_PROPERTY =
-        2, ///< Operation failed because of unknown simulation property
+        2, ///< Operation failed because of unknown simulation property.
+    GOL_RESULT_OUT_OF_MEMORY =
+        3 ///< Operation failed because of insufficient memory.
 } gol_result;
 
 /// @brief Lists available simulation properties.
@@ -111,6 +113,8 @@ typedef struct {
 ///
 /// @param[in,out] simulation Pointer for writing new simulation handle.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
+/// @retval GOL_RESULT_OUT_OF_MEMORY
+/// Operation failed due to insufficient memory.
 gol_result gol_simulation_create(gol_simulation *simulation);
 
 /// @brief Query simulation property.
@@ -130,6 +134,8 @@ gol_result gol_simulation_create(gol_simulation *simulation);
 /// @param[out] data Pointer for writing query results. Ignored if NULL.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
 /// @retval GOL_RESULT_UNKNOWN_SIMULATION_PROPERTY Queried unknown property.
+/// @retval GOL_RESULT_OUT_OF_MEMORY
+/// Operation failed due to insufficient memory.
 gol_result gol_simulation_query_property(gol_simulation simulation,
                                          gol_simulation_property_type property,
                                          gol_size *bytes, void *data);
@@ -144,6 +150,8 @@ gol_result gol_simulation_query_property(gol_simulation simulation,
 ///
 /// @param[in] simulation Simulation to progress.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
+/// @retval GOL_RESULT_OUT_OF_MEMORY
+/// Operation failed due to insufficient memory.
 gol_result gol_simulation_next_frame(gol_simulation simulation);
 
 /// @brief Query cells at multiple positions.
@@ -161,6 +169,8 @@ gol_result gol_simulation_next_frame(gol_simulation simulation);
 /// @param[out] cells Pointer for writing queried cells. Order of written cells
 /// corresponds to order of queried positions.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
+/// @retval GOL_RESULT_OUT_OF_MEMORY
+/// Operation failed due to insufficient memory.
 gol_result gol_simulation_query_cells(gol_simulation simulation, gol_size size,
                                       const gol_grid_position *positions,
                                       gol_cell *cells);
@@ -178,6 +188,8 @@ gol_result gol_simulation_query_cells(gol_simulation simulation, gol_size size,
 /// @param[in] size Number of cells to update.
 /// @param[in] cells Pointer for reading cells to update.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded. All updates were applied.
+/// @retval GOL_RESULT_OUT_OF_MEMORY
+/// Operation failed due to insufficient memory.
 gol_result gol_simulation_set_cells(gol_simulation simulation, gol_size size,
                                     const gol_cell *cells);
 
@@ -194,6 +206,8 @@ gol_result gol_simulation_set_cells(gol_simulation simulation, gol_size size,
 /// @param[out] size Pointer for writing number of alive cells. Ignored if NULL.
 /// @param[out] cells Pointer for writing alive cells. Ignored if NULL.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
+/// @retval GOL_RESULT_OUT_OF_MEMORY
+/// Operation failed due to insufficient memory.
 gol_result gol_simulation_get_alive_cells(gol_simulation simulation,
                                           gol_size *size, gol_cell *cells);
 
@@ -211,6 +225,8 @@ gol_result gol_simulation_get_alive_cells(gol_simulation simulation,
 /// NULL.
 /// @param[out] cells Pointer for writing updated cells. Ignored if NULL.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
+/// @retval GOL_RESULT_OUT_OF_MEMORY
+/// Operation failed due to insufficient memory.
 gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
                                             gol_size *size, gol_cell *cells);
 
@@ -225,6 +241,8 @@ gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
 ///
 /// @param[in] simulation Handle to destroy.
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
+/// @retval GOL_RESULT_OUT_OF_MEMORY
+/// Operation failed due to insufficient memory.
 gol_result gol_simulation_destroy(gol_simulation simulation);
 
 /// @}
