@@ -19,6 +19,10 @@ file(GLOB_RECURSE SRC_FILES
 )
 add_library(${TARGET_NAME} ${SRC_FILES})
 target_include_directories(${TARGET_NAME} PUBLIC include)
+target_compile_definitions(${TARGET_NAME} PRIVATE GOL_BUILD)
+if(BUILD_SHARED_LIBS)
+target_compile_definitions(${TARGET_NAME} PUBLIC GOL_SHARED)
+endif()
 
 if(ENABLE_TESTING)
   enable_testing()

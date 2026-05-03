@@ -12,6 +12,16 @@
 /// @defgroup simulation_api_func Simulation API Functions
 /// @brief Functions for creating and running game of life simulation.
 
+#if defined(_WIN32) && defined(GOL_SHARED)
+#ifdef GOL_BUILD
+#define GOL_API __declspec(dllexport)
+#else
+#define GOL_API __declspec(dllimport)
+#endif
+#else
+#define GOL_API
+#endif
+
 /// @addtogroup simulation_api
 /// @{
 
@@ -111,7 +121,7 @@ typedef struct {
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
 /// @retval GOL_RESULT_OUT_OF_MEMORY
 /// Operation failed due to insufficient memory.
-gol_result gol_simulation_create(gol_simulation *simulation);
+GOL_API gol_result gol_simulation_create(gol_simulation *simulation);
 
 /// @brief Query simulation property.
 /// @since 1.0.0
@@ -132,9 +142,9 @@ gol_result gol_simulation_create(gol_simulation *simulation);
 /// @retval GOL_RESULT_UNKNOWN_SIMULATION_PROPERTY Queried unknown property.
 /// @retval GOL_RESULT_OUT_OF_MEMORY
 /// Operation failed due to insufficient memory.
-gol_result gol_simulation_query_property(gol_simulation simulation,
-                                         gol_simulation_property_type property,
-                                         gol_size *bytes, void *data);
+GOL_API gol_result gol_simulation_query_property(
+    gol_simulation simulation, gol_simulation_property_type property,
+    gol_size *bytes, void *data);
 
 /// @brief Progress simulation to next time step.
 /// @since 1.0.0
@@ -148,7 +158,7 @@ gol_result gol_simulation_query_property(gol_simulation simulation,
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
 /// @retval GOL_RESULT_OUT_OF_MEMORY
 /// Operation failed due to insufficient memory.
-gol_result gol_simulation_next_frame(gol_simulation simulation);
+GOL_API gol_result gol_simulation_next_frame(gol_simulation simulation);
 
 /// @brief Query cells at multiple positions.
 /// @since 1.0.0
@@ -167,9 +177,9 @@ gol_result gol_simulation_next_frame(gol_simulation simulation);
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
 /// @retval GOL_RESULT_OUT_OF_MEMORY
 /// Operation failed due to insufficient memory.
-gol_result gol_simulation_query_cells(gol_simulation simulation, gol_size size,
-                                      const gol_grid_position *positions,
-                                      gol_cell *cells);
+GOL_API gol_result
+gol_simulation_query_cells(gol_simulation simulation, gol_size size,
+                           const gol_grid_position *positions, gol_cell *cells);
 
 /// @brief Update multiple simulation cells.
 /// @since 1.0.0
@@ -186,8 +196,9 @@ gol_result gol_simulation_query_cells(gol_simulation simulation, gol_size size,
 /// @retval GOL_RESULT_SUCCESS Operation succeeded. All updates were applied.
 /// @retval GOL_RESULT_OUT_OF_MEMORY
 /// Operation failed due to insufficient memory.
-gol_result gol_simulation_set_cells(gol_simulation simulation, gol_size size,
-                                    const gol_cell *cells);
+GOL_API gol_result gol_simulation_set_cells(gol_simulation simulation,
+                                            gol_size size,
+                                            const gol_cell *cells);
 
 /// @brief Query all alive cells.
 /// @since 1.0.0
@@ -204,8 +215,9 @@ gol_result gol_simulation_set_cells(gol_simulation simulation, gol_size size,
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
 /// @retval GOL_RESULT_OUT_OF_MEMORY
 /// Operation failed due to insufficient memory.
-gol_result gol_simulation_get_alive_cells(gol_simulation simulation,
-                                          gol_size *size, gol_cell *cells);
+GOL_API gol_result gol_simulation_get_alive_cells(gol_simulation simulation,
+                                                  gol_size *size,
+                                                  gol_cell *cells);
 
 /// @brief Query cells updated by the simulation in last time step.
 /// @since 1.0.0
@@ -223,8 +235,9 @@ gol_result gol_simulation_get_alive_cells(gol_simulation simulation,
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
 /// @retval GOL_RESULT_OUT_OF_MEMORY
 /// Operation failed due to insufficient memory.
-gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
-                                            gol_size *size, gol_cell *cells);
+GOL_API gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
+                                                    gol_size *size,
+                                                    gol_cell *cells);
 
 /// @brief Destroys existing simulation.
 /// @since 1.0.0
@@ -239,7 +252,7 @@ gol_result gol_simulation_get_updated_cells(gol_simulation simulation,
 /// @retval GOL_RESULT_SUCCESS Operation succeeded.
 /// @retval GOL_RESULT_OUT_OF_MEMORY
 /// Operation failed due to insufficient memory.
-gol_result gol_simulation_destroy(gol_simulation simulation);
+GOL_API gol_result gol_simulation_destroy(gol_simulation simulation);
 
 /// @}
 
