@@ -4,6 +4,6 @@
 #include <assert.h>
 
 /// @brief Check condition in debug configuration
-#define GOL_ASSERT(condition, msg) assert((msg, (condition)))
+#define GOL_ASSERT(condition, msg) assert(((void)msg, (condition)))
 
 #endif

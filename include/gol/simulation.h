@@ -101,7 +101,7 @@ typedef struct {
 /// @since 1.0.0
 typedef struct {
     /// @brief Cell's position.
-    gol_grid_position pos;
+    gol_grid_position position;
     /// @brief Determines if cell is alive or dead.
     gol_bool is_alive;
 } gol_cell;

@@ -8,7 +8,7 @@ inline bool check_pos_equality(const gol_grid_position &left,
 }
 
 inline bool check_cell_equality(const gol_cell &left, const gol_cell &right) {
-    return check_pos_equality(left.pos, right.pos) &&
+    return check_pos_equality(left.position, right.position) &&
            left.is_alive == right.is_alive;
 }
 
@@ -73,7 +73,7 @@ TEST_F(SimulationTest, CanSetAndQueryPositions) {
         gol_grid_position{2, 0}, gol_grid_position{3, 0}};
     gol_cell cells[op_count] = {};
     for (int i = 0; i < op_count; i++) {
-        cells[i].pos = positions[i];
+        cells[i].position = positions[i];
         cells[i].is_alive = i < set_count ? GOL_TRUE : GOL_FALSE;
     }
     ASSERT_EQ(gol_simulation_set_cells(simulation, set_count, cells),
@@ -149,7 +149,8 @@ TEST_F(SimulationTest, CanQueryAliveCells) {
     for (int i = 0; i < alive_count; i++) {
         EXPECT_EQ(alive_cells[i].is_alive, GOL_TRUE);
         for (int j = 0; j < expected_count; j++) {
-            if (check_pos_equality(alive_cells[i].pos, expected_positions[j])) {
+            if (check_pos_equality(alive_cells[i].position,
+                                   expected_positions[j])) {
                 matches[j]++;
             }
         }
